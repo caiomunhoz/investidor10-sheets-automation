@@ -1,5 +1,7 @@
-from google_sheets.reader import read_spreadsheet
 import pendulum
+from google_sheets.reader import read_spreadsheet
+from web_automation.session import WebSession
+from web_automation.pages import LoginPage
 
 def get_current_month_purchases(rows):
     purchases = []
@@ -18,10 +20,21 @@ def get_current_month_purchases(rows):
             })
         
     return purchases
- 
+
+def run_web_automation():
+    with WebSession() as driver:
+        home_page = LoginPage(driver, 'https://investidor10.com.br/login')
+        home_page.get_url()
+        home_page.authenticate()
+
 def main():
     rows = read_spreadsheet(spreadsheet_range='LANÇAMENTOS!A2:F20')
     current_month_purchases = get_current_month_purchases(rows)
+
+    if not current_month_purchases:
+        return
+
+    run_web_automation()
 
 if __name__ == '__main__':
     main()
