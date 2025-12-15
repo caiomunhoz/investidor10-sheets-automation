@@ -1,25 +1,7 @@
-import pendulum
 from google_sheets.reader import read_spreadsheet
+from services.entry_service import filter_by_current_month
 from web_automation.session import WebSession
 from web_automation.pages import LoginPage, WalletPage
-
-def get_current_month_entries(rows):
-    entries = []
-    today = pendulum.now()
-
-    for row in rows:
-        entry_date = pendulum.from_format(row[0], 'DD/MM/YYYY')
-
-        if entry_date.month == today.month and entry_date.year == today.year:
-            entries.append({
-                'date': row[0],
-                'asset': row[1],
-                'asset_type': row[2],
-                'quantity': row[3],
-                'price': row[4]
-            })
-  
-    return entries
 
 def run_web_automation(entries):
     with WebSession() as driver:
@@ -44,7 +26,7 @@ def run_web_automation(entries):
 
 def main():
     rows = read_spreadsheet(spreadsheet_range='LANÇAMENTOS!A2:F20')
-    current_month_entries = get_current_month_entries(rows)
+    current_month_entries = filter_by_current_month(rows)
 
     if not current_month_entries:
         return
