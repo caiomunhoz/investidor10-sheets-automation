@@ -9,10 +9,10 @@ class BasePage():
 
     def get_url(self):
         self.driver.get(self.url)
-
-    def url_changes(self):
-        return self.wait.until(EC.url_changes(self.url))
     
+    def url_to_be(self, new_url):
+        return self.wait.until(EC.url_to_be(new_url))
+
     def click(self, locator):
         self.wait.until(EC.element_to_be_clickable(locator)).click()
 

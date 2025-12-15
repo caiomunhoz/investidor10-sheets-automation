@@ -11,4 +11,4 @@ class LoginPage(BasePage):
         self.type(self.EMAIL, INVESTIDOR10_EMAIL)
         self.type(self.PASSWORD, INVESTIDOR10_PASSWORD)
         self.click(self.SUBMIT_BUTTON)
-        self.url_changes()
+        self.url_to_be('https://investidor10.com.br/')
