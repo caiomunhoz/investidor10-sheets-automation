@@ -1,5 +1,4 @@
 from config.variables import USER_WALLET_ID
-from decimal import Decimal
 import pendulum
 
 def to_payload_format(row):
