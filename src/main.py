@@ -3,7 +3,13 @@ from services.entry_service import filter_by_current_month
 from web_automation.session import WebSession
 from web_automation.pages import LoginPage, WalletPage
 
-def run_web_automation(entries):
+def main():
+    rows = read_spreadsheet(spreadsheet_range='LANÇAMENTOS!A2:J20')
+    current_month_entries = filter_by_current_month(rows)
+
+    if not current_month_entries:
+        return
+
     with WebSession() as driver:
         login_page = LoginPage(driver, 'https://investidor10.com.br/login')
         login_page.get_url()
@@ -13,17 +19,8 @@ def run_web_automation(entries):
         wallet_page.get_url()
         wallet_page.open_entry_form()
 
-        for entry in entries:
+        for entry in current_month_entries:
             wallet_page.add_entry(entry)
-
-def main():
-    rows = read_spreadsheet(spreadsheet_range='LANÇAMENTOS!A2:F20')
-    current_month_entries = filter_by_current_month(rows)
-
-    if not current_month_entries:
-        return
-
-    run_web_automation(current_month_entries)
 
 if __name__ == '__main__':
     main()
