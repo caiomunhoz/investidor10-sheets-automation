@@ -6,7 +6,7 @@ def main():
     rows = read_spreadsheet(spreadsheet_range='LANÇAMENTOS!A2:K20')
     current_month_entries = filter_by_current_month_purchases(rows)
 
-    if not current_month_entries:
+    if current_month_entries:
         run_web_automation(current_month_entries)
 
 if __name__ == '__main__':
