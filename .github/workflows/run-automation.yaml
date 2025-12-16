@@ -1,13 +1,16 @@
-name: Headless Test
+name: Run Automation
 
 on:
-  workflow_dispatch
+  schedule:
+    - cron: '0 0 15 * *'
+  workflow_dispatch:
 
 env: 
   GOOGLE_CLOUD_CREDENTIALS_JSON: ${{ secrets.GOOGLE_CLOUD_CREDENTIALS_JSON }}
   SPREADSHEET_ID: ${{ secrets.SPREADSHEET_ID }}
   INVESTIDOR10_EMAIL: ${{ secrets.INVESTIDOR10_EMAIL }}
   INVESTIDOR10_PASSWORD: ${{ secrets.INVESTIDOR10_PASSWORD }}
+  USER_WALLET_ID: ${{ secrets.USER_WALLET_ID }}
 
 jobs:
   run-automation:
