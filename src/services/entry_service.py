@@ -10,8 +10,8 @@ def to_payload_format(row):
         'type': row[7],
         'ticker': row[8],
         'ticker_type': row[9],
+        'source': row[10],
         'user_wallet_id': USER_WALLET_ID,
-        'source': 'MANUAL',
         'auto_conversion': 1
     }
 
@@ -22,7 +22,7 @@ def filter_by_current_month_purchases(rows):
     for row in rows:
         entry_date = pendulum.from_format(row[0], 'DD/MM/YYYY')
 
-        if entry_date.month == today.month and entry_date.year == today.year and row[7] == 'BUY':
+        if entry_date.month == today.month and entry_date.year == today.year and row[10] == 'MANUAL':
             entries.append(to_payload_format(row))
 
     return entries
