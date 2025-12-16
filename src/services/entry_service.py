@@ -22,7 +22,7 @@ def filter_by_current_month_purchases(rows):
     for row in rows:
         entry_date = pendulum.from_format(row[0], 'DD/MM/YYYY')
 
-        if entry_date.month == today.month and entry_date.year == today.year and row[7] == 'MANUAL':
+        if entry_date.month == today.month and entry_date.year == today.year and row[7] == 'BUY':
             entries.append(to_payload_format(row))
 
     return entries
