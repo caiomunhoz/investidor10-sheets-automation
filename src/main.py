@@ -1,11 +1,11 @@
 from google_sheets.reader import read_spreadsheet
-from services.entry_service import filter_by_current_month
+from services.entry_service import filter_by_current_month_purchases
 from web_automation.session import WebSession
 from web_automation.pages import LoginPage, WalletPage
 
 def main():
     rows = read_spreadsheet(spreadsheet_range='LANÇAMENTOS!A2:J20')
-    current_month_entries = filter_by_current_month(rows)
+    current_month_entries = filter_by_current_month_purchases(rows)
 
     if not current_month_entries:
         return
